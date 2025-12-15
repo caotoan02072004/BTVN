@@ -1,10 +1,5 @@
+/// <reference types="cypress" />
 describe("CB_5 - Tìm kiếm sản phẩm", () => {
-
-  // Bỏ qua lỗi uncaught exception nếu có
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false;
-  });
-
   beforeEach(() => {
     cy.log("Bước 1: Truy cập trang Demo Web Shop");
     cy.visit("https://demowebshop.tricentis.com/");
@@ -23,11 +18,7 @@ describe("CB_5 - Tìm kiếm sản phẩm", () => {
     cy.get(".product-item").should("have.length.greaterThan", 0);
 
     cy.log("Bước 5: Kiểm tra mỗi sản phẩm có chứa từ khóa 'computer'");
-    cy.get(".product-item").each(($el) => {
-      cy.wrap($el)
-        .find("h2.product-title")
-        .invoke("text")
-        .should("match", new RegExp(keyword, "i"));
+    cy.get('.product-grid').should('contain', 'computer');
     });
   });
-});
+

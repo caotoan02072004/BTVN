@@ -1,10 +1,5 @@
+/// <reference types="cypress" />
 describe("CB_6 - Thêm sản phẩm vào giỏ hàng qua thanh tìm kiếm", () => {
-
-  // Bỏ qua lỗi uncaught exception nếu có
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false;
-  });
-
   beforeEach(() => {
     cy.log("Bước 1: Truy cập trang Demo Web Shop");
     cy.visit("https://demowebshop.tricentis.com/");

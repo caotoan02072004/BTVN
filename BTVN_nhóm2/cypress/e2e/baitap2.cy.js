@@ -1,10 +1,5 @@
+/// <reference types="cypress" />
 describe("CB_2 - Kiểm tra nhập form hoàn tất", () => {
-
-  // Bỏ qua lỗi uncaught exception từ trang
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false;
-  });
-
   beforeEach(() => {
     cy.log(" Truy cập trang Text Box");
     cy.visit("https://demoqa.com/text-box");
