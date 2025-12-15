@@ -1,11 +1,8 @@
 /// <reference types="cypress" />
 describe("CB_3 - Login thành công", () => {
-  beforeEach(() => {
+  it("Đăng nhập thành công với user hợp lệ", () => {
     cy.log("Bước 1: Truy cập trang Login");
     cy.visit("https://the-internet.herokuapp.com/login");
-  });
-
-  it("Đăng nhập thành công với user hợp lệ", () => {
     cy.log("Bước 2: Điền Username");
     cy.get("#username").type("tomsmith");
     cy.log("Bước 3: Điền Password");

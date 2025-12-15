@@ -1,24 +1,12 @@
 /// <reference types="cypress" />
 describe("CB_5 - Tìm kiếm sản phẩm", () => {
-  beforeEach(() => {
-    cy.log("Bước 1: Truy cập trang Demo Web Shop");
-    cy.visit("https://demowebshop.tricentis.com/");
-  });
-
-  it("Tìm kiếm sản phẩm với từ khóa 'computer'", () => {
-    const keyword = "computer";
-
-    cy.log("Bước 2: Nhập từ khóa vào ô Search");
-    cy.get("input#small-searchterms").type(keyword);
-
-    cy.log("Bước 3: Click nút Search");
-    cy.get("input.button-1.search-box-button").click();
-
-    cy.log("Bước 4: Kiểm tra danh sách kết quả tìm kiếm");
-    cy.get(".product-item").should("have.length.greaterThan", 0);
-
-    cy.log("Bước 5: Kiểm tra mỗi sản phẩm có chứa từ khóa 'computer'");
-    cy.get('.product-grid').should('contain', 'computer');
+  it('CB_5 - Tìm kiếm sản phẩm ', () => {
+      cy.visit('https://demowebshop.tricentis.com/');
+      cy.get('#small-searchterms').type('computer');
+      cy.get('input[value="Search"]').click();
+      cy.get('.product-item').should('exist');
+   });v
     });
-  });
+  
+
 

@@ -1,20 +1,11 @@
 /// <reference types="cypress" />
 describe("TB_9 - Mua hàng thất bại vì không chọn điều khoản", () => {
-
-  Cypress.on("uncaught:exception", () => false);
-
   const email = "autotest_teca@gmail.com";
   const password = "12345@";
   const productName = "Build your own expensive computer";
-
-  beforeEach(() => {
+  it("Checkout thất bại khi không chọn điều khoản", () => {
     cy.log("Bước 1: Truy cập trang Demo Web Shop");
     cy.visit("https://demowebshop.tricentis.com/");
-  });
-
-  it("Checkout thất bại khi không chọn điều khoản", () => {
-
-    // ===== LOGIN =====
     cy.log("Bước 2: Click Login");
     cy.get(".ico-login").click();
 

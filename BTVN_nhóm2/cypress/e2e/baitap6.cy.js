@@ -1,13 +1,9 @@
 /// <reference types="cypress" />
 describe("CB_6 - Thêm sản phẩm vào giỏ hàng qua thanh tìm kiếm", () => {
-  beforeEach(() => {
-    cy.log("Bước 1: Truy cập trang Demo Web Shop");
-    cy.visit("https://demowebshop.tricentis.com/");
-  });
-
   it("Tìm kiếm 'Blue Jeans' và thêm vào giỏ hàng", () => {
+     cy.log("Bước 1: Truy cập trang Demo Web Shop");
+    cy.visit("https://demowebshop.tricentis.com/");
     const productName = "Blue Jeans";
-
     cy.log("Bước 2: Nhập từ khóa vào thanh Search");
     cy.get("input#small-searchterms").type(productName);
 

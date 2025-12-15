@@ -1,11 +1,9 @@
 /// <reference types="cypress" />
-describe("CB_2 - Kiểm tra nhập form hoàn tất", () => {
-  beforeEach(() => {
-    cy.log(" Truy cập trang Text Box");
-    cy.visit("https://demoqa.com/text-box");
+describe("CB_2 - Kiểm tra nhập form hoàn tất", () => { 
   });
-
   it("Điền form và kiểm tra kết quả", () => {
+    cy.log(" đăng nhập  vào web");
+    cy.visit("https://demoqa.com/text-box");
     cy.log(" Điền Full Name");
     cy.get("#userName").type("Nguyen Van B");
 
@@ -36,4 +34,4 @@ describe("CB_2 - Kiểm tra nhập form hoàn tất", () => {
     cy.log(" Kiểm tra Permanent Address hiển thị đúng");
     cy.get("#output #permanentAddress").should("contain.text", "456 XYZ Street");
   });
-});
+

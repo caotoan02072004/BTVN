@@ -1,13 +1,9 @@
 /// <reference types="cypress" />
 describe("TB_8 - Upload file", () => {
-  beforeEach(() => {
+  it("Upload file example.txt thành công", () => {
     cy.log("Bước 1: Truy cập trang Upload")
     cy.visit("https://the-internet.herokuapp.com/upload");
-  });
-
-  it("Upload file example.txt thành công", () => {
     const fileName = "example.txt";
-
     cy.log("Bước 2: Chọn file để upload");
     cy.get("input#file-upload").attachFile(fileName);
 
