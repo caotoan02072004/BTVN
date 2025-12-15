@@ -54,9 +54,9 @@ describe("TB_9 - Mua hàng thất bại vì không chọn điều khoản", () =
     cy.log("Bước 12: Kiểm tra alert yêu cầu chọn điều khoản");
 
     cy.on("window:alert", (alertText) => {
-    expect(alertText).to.contain(
-    "Please accept the terms of service before the next step."
-  );
-});
+      expect(alertText).to.contain(
+        "Please accept the terms of service before the next step."
+      );
+    });
   });
 });
