@@ -1,10 +1,5 @@
+/// <reference types="cypress" />
 describe("TB_8 - Upload file", () => {
-
-  // Bỏ qua lỗi uncaught exception nếu có
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false;
-  });
-
   beforeEach(() => {
     cy.log("Bước 1: Truy cập trang Upload")
     cy.visit("https://the-internet.herokuapp.com/upload");

@@ -1,5 +1,5 @@
+/// <reference types="cypress" />
 describe("TB_7 - API Testing", () => {
-
   it("Gửi GET request và kiểm tra response", () => {
     const endpoint = "https://jsonplaceholder.typicode.com/posts/1";
 

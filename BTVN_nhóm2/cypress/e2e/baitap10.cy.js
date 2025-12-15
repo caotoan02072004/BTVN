@@ -1,11 +1,5 @@
 /// <reference types="cypress" />
-
 describe("TB_10 - Kiểm tra tiến trình Progress Bar", () => {
-
-  Cypress.on("uncaught:exception", () => {
-    return false;
-  });
-
   beforeEach(() => {
     cy.log("Bước 1: Truy cập trang Progress Bar");
     cy.visit("https://demoqa.com/progress-bar");

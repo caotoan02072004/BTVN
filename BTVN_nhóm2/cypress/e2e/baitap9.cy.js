@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("TB_9 - Mua hàng thất bại vì không chọn điều khoản", () => {
 
   Cypress.on("uncaught:exception", () => false);

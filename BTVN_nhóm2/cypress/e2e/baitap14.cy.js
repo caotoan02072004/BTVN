@@ -1,16 +1,9 @@
 /// <reference types="cypress" />
-
 // Bỏ qua các lỗi uncaught exception từ script ngoài (ads, analytics)
-Cypress.on('uncaught:exception', (err, runnable) => {
-  return false;
-});
-
 describe("TB_14 - Hoàn thành đăng ký Student Registration Form", () => {
-
   beforeEach(() => {
     cy.visit("https://demoqa.com/automation-practice-form");
   });
-
   it("Điền đầy đủ thông tin và submit form", () => {
 
     const student = {
