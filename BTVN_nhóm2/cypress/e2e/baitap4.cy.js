@@ -20,8 +20,5 @@ describe("CB_3 - Login thất bại", () => {
     cy.log("Bước 5: Kiểm tra thông báo thành công");
     cy.get("#flash", { timeout: 10000 }).should("be.visible")
       .and("contain.text", "Your password is invalid!");
-    cy.log("Bước 6: Kiểm tra nút Logout xuất hiện");
-    cy.get("a.button", { timeout: 10000 }).should("be.visible")
-      .and("contain.text", "Logout");
   });
 });

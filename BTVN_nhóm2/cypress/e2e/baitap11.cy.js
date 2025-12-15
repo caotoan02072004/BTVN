@@ -11,8 +11,6 @@ describe("TB_11 - Kéo ô vuông vào ô hình chữ nhật", () => {
     source.trigger("mousedown", { which: 1, force: true });
     cy.contains("DROP HERE!")
       .trigger("mousemove", { force: true })
-      .trigger("mouseenter", { force: true })
-      .trigger("mouseover", { force: true })
       .trigger("mouseup", { force: true });
     cy.log("Bước 3: Kiểm tra chữ 'Dropped!' xuất hiện");
     cy.contains("Dropped!").should("exist");
