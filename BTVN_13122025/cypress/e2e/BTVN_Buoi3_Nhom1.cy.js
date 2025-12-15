@@ -7,7 +7,7 @@ const depositMoney = (amount) => { // helper cho bài 11,12,13
     cy.get('button[type="submit"]').click();
 
 };
-const withdrawMoney = (amount) => {
+const withdrawMoney = (amount) => { // helper cho bài 11,12,13
     cy.contains('button', 'Withdrawl').click();
     cy.contains('label', 'Amount to be Withdrawn')
         .parent('.form-group')
@@ -85,18 +85,65 @@ describe('Câu 1 đến câu 9', () => {
     });
 
     it('TB_9 Mua hàng thất bại vì không chọn điều khoản', () => {
+        const email = "autotest_teca@gmail.com";
+        const password = "12345@";
+        const productName = "Build your own expensive computer";
+
+        cy.log("Bước 1: Truy cập trang Demo Web Shop");
         cy.visit("https://demowebshop.tricentis.com/apparel-shoes");
+
+        // ===== LOGIN =====
+        cy.log("Bước 2: Click Login");
         cy.get(".ico-login").click();
-        cy.get("#Email").type("autotest_teca@gmail.com");
-        cy.get("#Password").type("12345@");
-        cy.get('[value="Log in"]').click();
-        cy.get("#small-searchterms").type("Build your own expensive computer");
-        cy.get('[value="Search"]').click();
-        cy.get('[value="Add to cart"]').click().click();
-        cy.get("#topcartlink", { timeout: 90000 }).click();
-        cy.contains("Shopping cart").click();
+
+        cy.log("Bước 3: Nhập Email & Password");
+        cy.get("#Email").type(email);
+        cy.get("#Password").type(password);
+
+        cy.log("Bước 4: Click Login");
+        cy.get("input.login-button").click();
+
+        cy.log("Bước 5: Xác nhận đăng nhập thành công");
+        cy.get(".account").should("contain.text", email);
+
+        // ===== SEARCH =====
+        cy.log("Bước 6: Nhập từ khóa tìm kiếm");
+        cy.get("#small-searchterms").type(productName);
+
+        cy.log("Bước 7: Click Search");
+        cy.get("input.search-box-button").click();
+
+        cy.log("Bước 8: Click sản phẩm trong kết quả");
+        cy.contains(".product-title a", productName).click();
+
+        // ===== ADD TO CART =====
+        cy.log("Bước 9: Thêm sản phẩm vào giỏ hàng");
+        cy.get("input[id^='add-to-cart-button']")
+            .first()
+            .click();
+
+        cy.get(".bar-notification.success")
+            .should("be.visible")
+            .and("contain.text", "The product has been added to your shopping cart");
+
+        // Đóng notification
+        cy.get(".bar-notification.success .close").click();
+
+        // ===== CART =====
+        cy.log("Bước 10: Vào Shopping Cart");
+        cy.get(".cart-qty").click();
+
+        // ===== CHECKOUT (KHÔNG TICK TERMS) =====
+        cy.log("Bước 11: Click Checkout (không tick điều khoản)");
         cy.get("#checkout").click();
-        cy.contains("Please accept the terms of service before the next step.").should("be.visible");
+
+        // ===== VERIFY =====
+        cy.log("Bước 12: Kiểm tra alert yêu cầu chọn điều khoản");
+        cy.on("window:alert", (alertText) => {
+            expect(alertText).to.contain(
+                "Please accept the terms of service before the next step."
+            );
+        });
     });
 });
 describe('Câu 10 đến câu 13', () => {
@@ -146,57 +193,118 @@ describe('Câu 10 đến câu 13', () => {
 });
 describe('Câu 14 đến câu 15', () => {
     it('TB_14 Hoàn thành đăng ký', () => {
-        cy.visit('https://demoqa.com/automation-practice-form', {
-            timeout: 120000,
-            failOnStatusCode: false
-        }); //API load lâu nên phải chờ
-        cy.get('#firstName').type('John');
-        cy.get('#lastName').type('Doe');
-        cy.get('#userEmail').type('john.doe@test.com');
-        cy.get('label[for="gender-radio-1"]').click();
-        cy.get('#userNumber').type('0987654321');
-        cy.get('#dateOfBirthInput').type('15 May 1990{enter}');
-        cy.get('#subjectsContainer').click().type('Maths{enter}').type('Physics{enter}').type('Computer Science{enter}');
-        cy.get('label[for="hobbies-checkbox-1"]').click();
-        cy.get('label[for="hobbies-checkbox-3"]').click();
-        cy.get('#currentAddress').type('123 Test Street, Hanoi');
-        cy.get('#state').click();
-        cy.get('.css-1n7v3ny-option').contains('NCR').click();
-        cy.get('#city').click();
-        cy.get('.css-1n7v3ny-option').contains('Delhi').click();
-        cy.get('#uploadPicture').click();
-        cy.get("input[type=file]").attachFile("test_img.jpg");
-        cy.get('#submit').click();
-        cy.contains('Thanks for submitting the form').should('be.visible');
-        cy.contains('tr', 'Student Name').should('contain.text', 'John Doe');
+        const student = {
+            firstName: "John",
+            lastName: "Doe",
+            email: "john.doe@test.com",
+            gender: "Male",
+            mobile: "0987654321",
+            dob: {
+                day: "15",
+                month: "May",
+                year: "1990"
+            },
+            subjects: ["Maths", "Physics", "Computer Science"],
+            hobbies: ["Sports", "Music"],
+            address: "123 Test Street, Hanoi",
+            state: "NCR",
+            city: "Delhi",
+            file: "example.txt"
+        };
+        cy.visit("https://demoqa.com/automation-practice-form");
+        // Điền thông tin cơ bản
+        cy.get("#firstName").type(student.firstName);
+        cy.get("#lastName").type(student.lastName);
+        cy.get("#userEmail").type(student.email);
+        cy.contains('label', student.gender).click();
+        cy.get("#userNumber").type(student.mobile);
+
+        // Date of Birth
+        cy.get("#dateOfBirthInput").click();
+        cy.get(".react-datepicker__month-select").select(student.dob.month);
+        cy.get(".react-datepicker__year-select").select(student.dob.year);
+        cy.get(`.react-datepicker__day--0${student.dob.day}`).not('.react-datepicker__day--outside-month').click();
+
+        // Subjects
+        student.subjects.forEach(subject => {
+            cy.get("#subjectsInput").type(subject).type('{enter}');
+        });
+
+        // Hobbies
+        student.hobbies.forEach(hobby => {
+            cy.contains('label', hobby).click();
+        });
+
+        // Upload file (cần plugin cypress-file-upload)
+        cy.get('#uploadPicture').attachFile(student.file);
+
+        // Address
+        cy.get("#currentAddress").type(student.address);
+
+        // State & City
+        cy.get("#state").click();
+        cy.contains("div", student.state).click();
+        cy.get("#city").click();
+        cy.contains("div", student.city).click();
+
+        // Submit form
+        cy.get("#submit").click();
+
+        // Kiểm tra popup hiển thị
+        cy.get(".modal-content").should("be.visible");
+        cy.contains(".modal-title", "Thanks for submitting the form").should("exist");
+
+        // Kiểm tra Student Name hiển thị đúng
+        cy.get("td")
+            .contains("Student Name")
+            .siblings("td")
+            .should("have.text", `${student.firstName} ${student.lastName}`);
     });
     it('TB_15 Cập nhật thông tin liên hệ', () => {
-        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-        cy.get('[name="username"]').type('Admin');
-        cy.get('[name="password"]').type('admin123');
-        cy.get('[type="submit"]').click();
-        cy.get('.oxd-main-menu-item').contains('My Info').click();
-        cy.get('.orangehrm-tabs-item').contains('Contact Details').click();
-        cy.contains('label', 'Street 1')
-            .parents('.oxd-input-group')
-            .find('input')
-            .clear()
-            .type('123 Test St');
-        cy.contains('label', 'Mobile')
-            .parents('.oxd-input-group')
-            .find('input')
-            .clear()
-            .type('0901234567');
-        cy.contains('label', 'Work Email')
-            .parents('.oxd-input-group')
-            .find('input')
-            .clear()
-            .type('test@email.com');
-        cy.get('button').contains(' Save ').click();
-        cy.get('.oxd-toast-container').should("contain.text", "Successfully Updated");
-        cy.verifyInputByLabel('Street 1', '123 Test St'); //dùng command để tối ưu code
-        cy.verifyInputByLabel('Mobile', '0901234567');
-        cy.verifyInputByLabel('Work Email', 'test@email.com');
+        const contactData = {
+            street1: "123 Test St",
+            mobile: "0901234567",
+            workEmail: "test@email.com",
+        };
+        // 1. Login
+        cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
+        cy.get('[name="username"]').type("Admin");
+        cy.get('[name="password"]').type("admin123");
+        cy.get('button[type="submit"]').click();
+
+        // Verify login success
+        cy.url().should("include", "/dashboard");
+
+        // 2. Vào My Info
+        cy.contains("My Info").click();
+
+        // 3. Chuyển tab Contact Details
+        cy.contains("Contact Details").click();
+
+        // 4. Hàm điền input theo label
+        const fillInput = (labelText, value) => {
+            cy.contains("label", labelText)
+                .parents(".oxd-input-group")
+                .find("input")
+                .clear()
+                .type(value);
+        };
+
+        fillInput("Street 1", contactData.street1);
+        fillInput("Mobile", contactData.mobile);
+        fillInput("Work Email", contactData.workEmail);
+
+        // 5. Save
+        cy.contains("button", "Save").click();
+
+        // 6. Verify message Successfully Updated
+        cy.contains("Successfully Updated").should("be.visible");
+
+        // 7. Verify dữ liệu
+        cy.verifyInputByLabel('Street 1', contactData.street1); //dùng command để tối ưu code
+        cy.verifyInputByLabel('Mobile', contactData.mobile);
+        cy.verifyInputByLabel('Work Email', contactData.workEmail);
     });
 
 })
