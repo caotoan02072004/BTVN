@@ -30,11 +30,10 @@ describe('Câu 1 đến câu 9', () => {
         cy.get('#currentAddress').type('123 ABC Street');
         cy.get('#permanentAddress').type('456 XYZ Street');
         cy.get('#submit').click();
-        cy.get('#output').should('be.visible');
-        cy.get('#output #name').should('contain.text', 'Nguyen Van A');
-        cy.get('#output #email').should('contain.text', 'test@gmail.com');
-        cy.get('#output #currentAddress').should('contain.text', '123 ABC Street');
-        cy.get('#output #permanentAddress').should('contain.text', '456 XYZ Street');
+        cy.get('#output #name').should('contain.text', 'Name:Nguyen Van A');
+        cy.get('#output #email').should('contain.text', 'Email:test@gmail.com');
+        cy.get('#output #currentAddress').should('contain.text', 'Current Address :123 ABC Street');
+        cy.get('#output #permanentAddress').should('contain.text', 'Permananet Address :456 XYZ Street');
     });
     it('CB_3 - Login thành công', () => {
         cy.visit('https://the-internet.herokuapp.com/login');
