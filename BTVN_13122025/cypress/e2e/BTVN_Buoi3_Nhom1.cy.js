@@ -21,7 +21,7 @@ const withdrawMoney = (amount) => { // helper cho bài 11,12,13
 describe('Câu 1 đến câu 9', () => {
     it('CB_1 - Truy cập demoqa.com hiển thị card Elements', () => {
         cy.visit('https://demoqa.com/');
-        cy.get('.card.mt-4.top-card .card-body').first().should('have.text', 'Elements');
+        cy.contains(".card-body", "Elements").should("be.visible");
     });
     it('CB_2 - Điền form Text Box demoqa thành công', () => {
         cy.visit('https://demoqa.com/text-box');
