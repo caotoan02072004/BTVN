@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+describe("baitap13", () => {
 it('Verify text in iframe', () => {
   cy.visit('https://the-internet.herokuapp.com/iframe');
 
@@ -5,4 +7,5 @@ it('Verify text in iframe', () => {
   cy.iframe('#mce_0_ifr')
     .find('p')
     .should('have.text', 'Your content goes here.');
+});
 });
