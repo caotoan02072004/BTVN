@@ -23,3 +23,4 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 import '@4tw/cypress-drag-drop';
 import 'cypress-iframe';
+import 'cypress-iframe';

@@ -7,6 +7,6 @@ describe("CB_5 - Tìm kiếm sản phẩm", () => {
     cy.get('.product-item').should('exist');
   }); 
 });
-
+  
 
 
