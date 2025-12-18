@@ -21,7 +21,7 @@ const withdrawMoney = (amount) => { // helper cho bài 11,12,13
 describe('Câu 1 đến câu 9', () => {
     it('CB_1 - Truy cập demoqa.com hiển thị card Elements', () => {
         cy.visit('https://demoqa.com/');
-        cy.get('.card.mt-4.top-card .card-body').first().should('have.text', 'Elements');
+        cy.contains(".card-body", "Elements").should("be.visible");
     });
     it('CB_2 - Điền form Text Box demoqa thành công', () => {
         cy.visit('https://demoqa.com/text-box');
@@ -30,11 +30,10 @@ describe('Câu 1 đến câu 9', () => {
         cy.get('#currentAddress').type('123 ABC Street');
         cy.get('#permanentAddress').type('456 XYZ Street');
         cy.get('#submit').click();
-        cy.get('#output').should('be.visible');
-        cy.get('#output #name').should('contain.text', 'Nguyen Van A');
-        cy.get('#output #email').should('contain.text', 'test@gmail.com');
-        cy.get('#output #currentAddress').should('contain.text', '123 ABC Street');
-        cy.get('#output #permanentAddress').should('contain.text', '456 XYZ Street');
+        cy.get('#output #name').should('contain.text', 'Name:Nguyen Van A');
+        cy.get('#output #email').should('contain.text', 'Email:test@gmail.com');
+        cy.get('#output #currentAddress').should('contain.text', 'Current Address :123 ABC Street');
+        cy.get('#output #permanentAddress').should('contain.text', 'Permananet Address :456 XYZ Street');
     });
     it('CB_3 - Login thành công', () => {
         cy.visit('https://the-internet.herokuapp.com/login');
