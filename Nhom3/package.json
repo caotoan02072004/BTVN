@@ -1,0 +1,22 @@
+{
+  "name": "nhom3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^15.8.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3",
+    "googleapis": "^169.0.0",
+    "imap-simple": "^5.1.0",
+    "mailparser": "^3.9.1",
+    "tesseract.js": "^7.0.0"
+  }
+}
